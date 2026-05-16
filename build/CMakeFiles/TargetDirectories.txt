@@ -1,0 +1,3 @@
+/home/gojo/Documents/fun/build/CMakeFiles/myshell.dir
+/home/gojo/Documents/fun/build/CMakeFiles/edit_cache.dir
+/home/gojo/Documents/fun/build/CMakeFiles/rebuild_cache.dir
