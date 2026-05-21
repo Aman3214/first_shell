@@ -5,12 +5,14 @@ int sh_cd(char **args) {
     printf("Changing directory to: %s\n", args[1]);
     if (args[1] == NULL) {
         fprintf(stderr, "Expected argument to \"cd\"\n");
+        return 1;
     } else {
         if (chdir(args[1]) != 0) {
             perror("cd");
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 //help function
@@ -21,7 +23,7 @@ int sh_help(char **args) {
     printf("  pwd - Print the current working directory\n");
     printf("  echo [args] - Print the arguments to the terminal\n");
     printf("  exit - Exit the shell\n");
-    return 1;
+    return 0;
 }
 
 //exit function
@@ -37,8 +39,9 @@ int sh_pwd(char **args) {
         printf("%s\n", cwd);
     } else {
         perror("getcwd");
+        return 1;
     }
-    return 1;
+    return 0;
 }
 
 //echo function
@@ -51,7 +54,7 @@ int sh_echo(char **args) {
         for (int i = 2; args[i] != NULL; i++) {
             printf("%s ", args[i]);
         }
-        return 1;
+        return 0;
     }
     else if(strcmp(args[1], "-e") == 0) {
         for(int i = 2; args[i] != NULL; i++) {
@@ -74,7 +77,7 @@ int sh_echo(char **args) {
             printf(" ");
         }
         printf("\n");
-        return 1;
+        return 0;
     }
     else if(strcmp(args[1],"$USER") == 0) {
         char *user = getenv("USER");
@@ -82,12 +85,13 @@ int sh_echo(char **args) {
             printf("%s\n", user);
         } else {
             fprintf(stderr, "USER environment variable not set\n");
+            return 1;
         }
         for (int i = 2; args[i] != NULL; i++) {
             printf("%s ", args[i]);
         }
         printf("\n");
-        return 1;
+        return 0;
     }
     for (int i = 1; args[i] != NULL; i++) {
         printf("%s ", args[i]);
@@ -106,9 +110,10 @@ int launch_external(char **args) {
     } else if (pid < 0) {
         // Forking error
         perror("fork");
+        return 1;
     } else {
         // Parent process
         wait(NULL);
     }
-    return 1;
+    return 0;
 }

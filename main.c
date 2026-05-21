@@ -9,12 +9,20 @@ struct builtin builtins[] = {
     {NULL, NULL}
 };
 
+int execute_command(char **args) {
+    for(int i = 0; builtins[i].name != NULL; i++) {
+        if (strcmp(args[0], builtins[i].name) == 0) {
+            return builtins[i].function(args);
+        }
+    }
+    return launch_external(args);
+}
 int main() {
 
     //main loop
     while(1) {
         //Reading user input and parsing it into command and arguments
-        char buffer[50];
+        char buffer[1024];
         printf("%s>> ",getcwd(NULL, 1024));
         fgets(buffer, sizeof(buffer), stdin);
         buffer[strcspn(buffer, "\n")] = 0; 
@@ -32,21 +40,39 @@ int main() {
         if (args[0] == NULL) {
             continue;
         }
-        
-        //Matching the command with built-in commands
-        int found = 0;
-        for(int i = 0; builtins[i].name != NULL; i++) {
-            if (strcmp(args[0], builtins[i].name) == 0) {
-                printf("Executing built-in command: %s\n", args[0]);
-                builtins[i].function(args);
-                found = 1;
-                break;
+        //processing && and || case for multiple commands
+        i=0;
+        int start_idx = 0;
+        int execute_next = 1;
+        while(args[i] != NULL) {
+            
+            if(strcmp(args[i], "&&") == 0) {
+                args[i] = NULL; 
+                if (execute_next) {
+                    if(execute_command(&args[start_idx]) != 0) {
+                        execute_next = 0; 
+                    }
+                }
+                start_idx = i + 1;
+                i = 0;
+                continue;
             }
+
+            else if(strcmp(args[i], "||") == 0) {
+                args[i] = NULL; 
+                if (execute_next) {
+                    if(execute_command(&args[start_idx]) == 0) {
+                        execute_next = 0; 
+                    }
+                }
+                start_idx = i + 1;
+                i = 0;
+                continue;
+            }
+            i++;
         }
-        if (!found) {
-            printf("Command not in builtins: %s\n", args[0]);
-            fflush(stdout);
-            launch_external(args);
+        if (execute_next && args[start_idx] != NULL) {
+            execute_command(&args[start_idx]);
         }
     }
     return 0;
