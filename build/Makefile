@@ -153,6 +153,30 @@ commands.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/commands.c.s
 .PHONY : commands.c.s
 
+executor.o: executor.c.o
+.PHONY : executor.o
+
+# target to build an object file
+executor.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/executor.c.o
+.PHONY : executor.c.o
+
+executor.i: executor.c.i
+.PHONY : executor.i
+
+# target to preprocess a source file
+executor.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/executor.c.i
+.PHONY : executor.c.i
+
+executor.s: executor.c.s
+.PHONY : executor.s
+
+# target to generate assembly for a file
+executor.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/executor.c.s
+.PHONY : executor.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -177,6 +201,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/main.c.s
 .PHONY : main.c.s
 
+parser.o: parser.c.o
+.PHONY : parser.o
+
+# target to build an object file
+parser.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/parser.c.o
+.PHONY : parser.c.o
+
+parser.i: parser.c.i
+.PHONY : parser.i
+
+# target to preprocess a source file
+parser.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/parser.c.i
+.PHONY : parser.c.i
+
+parser.s: parser.c.s
+.PHONY : parser.s
+
+# target to generate assembly for a file
+parser.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/parser.c.s
+.PHONY : parser.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +237,15 @@ help:
 	@echo "... commands.o"
 	@echo "... commands.i"
 	@echo "... commands.s"
+	@echo "... executor.o"
+	@echo "... executor.i"
+	@echo "... executor.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... parser.o"
+	@echo "... parser.i"
+	@echo "... parser.s"
 .PHONY : help
 
 

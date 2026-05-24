@@ -1,5 +1,14 @@
 #include "shell.h"
 
+struct builtin builtins[] = {
+    {"cd", sh_cd},
+    {"help", sh_help},
+    {"exit", sh_exit},
+    {"pwd", sh_pwd},
+    {"echo", sh_echo},
+    {NULL, NULL}
+};
+
 //change directory function
 int sh_cd(char **args) {
     printf("Changing directory to: %s\n", args[1]);
@@ -100,20 +109,61 @@ int sh_echo(char **args) {
     return 1;
 }
 
-int launch_external(char **args) {
+// Execute command function
+int execute_command_io(char **args,int input_fd, int output_fd) {
+    for(int i = 0; builtins[i].name != NULL; i++) {
+        if (strcmp(args[0], builtins[i].name) == 0) {
+            if(input_fd != STDIN_FILENO || output_fd != STDOUT_FILENO) {
+                pid_t pid = fork();
+                if (pid == 0) {
+                    if (input_fd != STDIN_FILENO) {
+                        dup2(input_fd, STDIN_FILENO);
+                        close(input_fd);
+                    }
+                    if (output_fd != STDOUT_FILENO) {
+                        dup2(output_fd, STDOUT_FILENO);
+                        close(output_fd);
+                    }
+                    exit(builtins[i].function(args));
+                }
+                int status;
+                waitpid(pid, &status, 0);
+                if (WIFEXITED(status)) {
+                    return WEXITSTATUS(status);
+                }
+            }
+            return builtins[i].function(args);
+        }
+    }
+    return launch_external_io(args, input_fd, output_fd);
+}
+    
+
+
+int launch_external_io(char **args, int input_fd, int output_fd) {
     pid_t pid = fork();
     if (pid == 0) {
-        // Child process
+        if (input_fd != STDIN_FILENO) {
+            dup2(input_fd, STDIN_FILENO);
+            close(input_fd);
+        }
+        if (output_fd != STDOUT_FILENO) {
+            dup2(output_fd, STDOUT_FILENO);
+            close(output_fd);
+        }
         execvp(args[0], args);
         perror("execvp");
         exit(EXIT_FAILURE);
     } else if (pid < 0) {
-        // Forking error
         perror("fork");
         return 1;
     } else {
-        // Parent process
-        wait(NULL);
+        int status;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status)) {
+            return WEXITSTATUS(status);
+        }
     }
-    return 0;
+    return 1;
+
 }

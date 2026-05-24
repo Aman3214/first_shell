@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/myshell.dir/main.c.o CMakeFiles/myshell.dir/commands.c.o -o myshell 
+/usr/bin/cc CMakeFiles/myshell.dir/main.c.o CMakeFiles/myshell.dir/commands.c.o CMakeFiles/myshell.dir/parser.c.o CMakeFiles/myshell.dir/executor.c.o -o myshell 

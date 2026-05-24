@@ -81,12 +81,12 @@ clean: CMakeFiles/myshell.dir/clean
 CMakeFiles/myshell.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/myshell.dir/build.make CMakeFiles/myshell.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/gojo/Documents/fun/build/CMakeFiles --progress-num=1,2,3 "Built target myshell"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/gojo/Documents/fun/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target myshell"
 .PHONY : CMakeFiles/myshell.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/myshell.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gojo/Documents/fun/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gojo/Documents/fun/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/myshell.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gojo/Documents/fun/build/CMakeFiles 0
 .PHONY : CMakeFiles/myshell.dir/rule

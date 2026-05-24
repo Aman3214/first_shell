@@ -15,4 +15,6 @@ add_compile_options(-Wall -Wextra -g)
 add_executable(myshell 
     main.c 
     commands.c
+    parser.c
+    executor.c
 )

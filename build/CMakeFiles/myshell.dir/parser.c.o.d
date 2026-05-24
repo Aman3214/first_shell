@@ -1,4 +1,4 @@
-CMakeFiles/myshell.dir/commands.c.o: /home/gojo/Documents/fun/commands.c \
+CMakeFiles/myshell.dir/parser.c.o: /home/gojo/Documents/fun/parser.c \
  /usr/include/stdc-predef.h /home/gojo/Documents/fun/shell.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
